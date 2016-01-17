@@ -22,6 +22,11 @@
   ],
   "keywords": [],
   "system": {
+    "envs": {
+      "server-production": {
+        "baseURL": "https://pmo-mrbeewer.firebaseapp.com/"
+      }
+    },
     "main": "place-my-order/index.stache!done-autorender",
     "directories": {
       "lib": "src"
@@ -38,6 +43,7 @@
     ]
   },
   "dependencies": {
+    "bit-tabs": "^0.2.0",
     "can": "^2.3.0",
     "can-connect": "^0.3.0",
     "can-ssr": "^0.11.0",
@@ -48,7 +54,8 @@
     "jquery": "2.1.4",
     "place-my-order-api": "^0.4.4",
     "place-my-order-assets": "^0.1.6",
-    "steal": "^0.13.0"
+    "steal": "^0.13.0",
+    "steal-socket.io": "^1.0.1"
   },
   "devDependencies": {
     "documentjs": "^0.4.1",
@@ -59,5 +66,30 @@
     "testee": "^0.2.4",
     "donejs-cli": "^0.6.0",
     "can-fixture": "^0.1.0"
+  },
+  "donejs": {
+    "deploy": {
+      "root": "dist",
+      "services": {
+        "production": {
+          "type": "firebase",
+          "config": {
+            "firebase": "pmo-mrbeewer",
+            "public": "./dist",
+            "headers": [
+              {
+                "source": "/**",
+                "headers": [
+                  {
+                    "key": "Access-Control-Allow-Origin",
+                    "value": "*"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
   }
 }
